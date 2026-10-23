@@ -19,3 +19,16 @@ export const getWallpapers = async (libraryPaths) => {
   }
   return wallpapers.sort()
 }
+
+export const shouldChange = (lastChange, intervalHours) => {
+  let elapsed = new Date() - new Date(lastChange)
+  const intervalMs = intervalHours * 60 * 60 * 1000
+  if (Number.isNaN(elapsed)) {
+    return true
+  }
+  return elapsed >= intervalMs
+}
+
+export const getNextWallpaper = (wallpapers, lastWallpaper) => {
+  const nextWallPaperIndex = wallpapers.indexOf(lastWallpaper) + 1
+}
