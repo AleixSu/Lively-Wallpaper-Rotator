@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { loadConfig } from './src/config.js'
 import { isLivelyRunning, setWallpaper } from './src/lively.js'
+import { getWallpapers } from './src/rotation.js'
 
 const running = await isLivelyRunning()
 
@@ -10,6 +11,9 @@ try {
   }
   const config = await loadConfig()
   console.log(config)
+
+  const wallpapers = await getWallpapers(config.libraryPaths)
+
   await setWallpaper(config.livelyPath, 'random')
   console.log('Wallpaper Changed')
 } catch (error) {
