@@ -1,0 +1,20 @@
+{
+  "name": "lively-rotator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "lively-rotator": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "install-task": "node index.js install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
