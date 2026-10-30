@@ -1,4 +1,4 @@
-import { readdir } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 export const getWallpapers = async (libraryPaths) => {
@@ -37,4 +37,11 @@ export const getNextWallpaper = (wallpapers, lastWallpaper) => {
     (wallpapers.indexOf(lastWallpaper) + 1) % wallpapers.length
 
   return wallpapers[nextWallpaperIndex]
+}
+
+export const getWallpaperTitle = async (wallpaperFolder) => {
+  const infoPath = path.join(wallpaperFolder, 'LivelyInfo.json')
+  const text = await readFile(infoPath, 'utf8')
+  const info = JSON.parse(text)
+  return info.Title
 }

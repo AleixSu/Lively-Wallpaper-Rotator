@@ -6,6 +6,7 @@ import { log, logError } from './src/logger.js'
 import {
   getNextWallpaper,
   getWallpapers,
+  getWallpaperTitle,
   shouldChange
 } from './src/rotation.js'
 import { loadStateFile, writeStateFile } from './src/state.js'
@@ -27,14 +28,16 @@ const run = async () => {
     }
     const wallpapers = await getWallpapers(config.libraryPaths)
     const nextWallpaper = getNextWallpaper(wallpapers, userState.lastWallpaper)
+    const wallPaperTitle = await getWallpaperTitle(nextWallpaper)
+
     await setWallpaper(config.livelyPath, nextWallpaper)
     await writeStateFile({
       lastWallpaper: nextWallpaper,
       lastChange: new Date().toISOString()
     })
-    await log(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
+    await log(`Wallpaper changed to ${wallPaperTitle}`)
     if (config.notifications) {
-      await notify(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
+      await notify(`Wallpaper changed to ${wallPaperTitle}`)
     }
   } else {
     await log('Not time to change yet')
