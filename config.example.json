@@ -4,5 +4,6 @@
     "C:\\Users\\YOUR_USER\\AppData\\Local\\Lively Wallpaper\\Library\\wallpapers",
     "C:\\Users\\YOUR_USER\\AppData\\Local\\Lively Wallpaper\\Library\\SaveData\\wptmp"
   ],
-  "intervalHours": 24
+  "intervalHours": 24,
+  "notifications": true
 }

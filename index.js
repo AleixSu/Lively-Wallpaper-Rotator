@@ -10,6 +10,7 @@ import {
 } from './src/rotation.js'
 import { loadStateFile, writeStateFile } from './src/state.js'
 import { installTask, uninstallTask } from './src/task.js'
+import { notify } from './src/notifier.js'
 
 const run = async () => {
   const config = await loadConfig()
@@ -32,6 +33,9 @@ const run = async () => {
       lastChange: new Date().toISOString()
     })
     await log(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
+    if (config.notifications) {
+      await notify(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
+    }
   } else {
     await log('Not time to change yet')
   }
@@ -43,9 +47,11 @@ try {
   if (command === 'install') {
     await installTask()
     await log('Task installed. Wallpapers will rotate automatically.')
+    await notify('Task installed. Wallpapers will rotate automatically.')
   } else if (command === 'uninstall') {
     await uninstallTask()
     await log('Task removed.')
+    await notify('Task removed.')
   } else if (command === undefined) {
     await run()
   } else {
@@ -55,5 +61,26 @@ try {
   }
 } catch (error) {
   await logError(error.message)
+
+  try {
+    let notificationsOn = true
+    try {
+      const config = await loadConfig()
+      notificationsOn = config.notifications
+    } catch {
+      // Config can't be read (maybe that's the error itself): keep notifying
+    }
+
+    const state = await loadStateFile()
+
+    if (notificationsOn && state.lastNotifiedError !== error.message) {
+      await notify(`Error: ${error.message}`)
+    }
+
+    await writeStateFile({ ...state, lastNotifiedError: error.message })
+  } catch {
+    // Notifying and saving state are best-effort: the error is already in the log
+  }
+
   process.exitCode = 1
 }

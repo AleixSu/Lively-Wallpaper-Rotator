@@ -8,7 +8,7 @@ const TASK_NAME = 'LivelyRotator'
 const INDEX_PATH = path.join(import.meta.dirname, '..', 'index.js')
 
 export const installTask = async () => {
-  const command = `"${process.execPath}" "${INDEX_PATH}"`
+  const command = `conhost.exe --headless "${process.execPath}" "${INDEX_PATH}"`
 
   await execFileAsync('schtasks', [
     '/create',

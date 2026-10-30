@@ -8,7 +8,6 @@ const formatLine = (level, message) => {
   return line
 }
 export const log = async (message) => {
-  console.log('LOG_PATH:', LOG_PATH)
   console.log(message)
   await appendFile(LOG_PATH, formatLine('INFO', message))
 }

@@ -13,7 +13,8 @@ const defaults = {
     path.join(LOCALAPPDATA, 'Lively Wallpaper', 'Library', 'wallpapers'),
     path.join(LOCALAPPDATA, 'Lively Wallpaper', 'Library', 'SaveData', 'wptmp')
   ],
-  intervalHours: 24
+  intervalHours: 24,
+  notifications: true
 }
 
 export const loadConfig = async () => {
