@@ -20,7 +20,7 @@ export const loadStateFile = async () => {
   return userState
 }
 
-export const writeStateFile = async (state) => {
-  const text = JSON.stringify(state, null, 2)
+export const writeStateFile = async (stateData) => {
+  const text = JSON.stringify(stateData, null, 2)
   await writeFile(STATE_PATH, text)
 }

@@ -30,5 +30,11 @@ export const shouldChange = (lastChange, intervalHours) => {
 }
 
 export const getNextWallpaper = (wallpapers, lastWallpaper) => {
-  const nextWallPaperIndex = wallpapers.indexOf(lastWallpaper) + 1
+  if (wallpapers.length === 0) {
+    throw new Error('No wallpapers found in library paths')
+  }
+  const nextWallpaperIndex =
+    (wallpapers.indexOf(lastWallpaper) + 1) % wallpapers.length
+
+  return wallpapers[nextWallpaperIndex]
 }
