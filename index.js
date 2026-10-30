@@ -9,8 +9,9 @@ import {
   shouldChange
 } from './src/rotation.js'
 import { loadStateFile, writeStateFile } from './src/state.js'
+import { installTask, uninstallTask } from './src/task.js'
 
-try {
+const run = async () => {
   const config = await loadConfig()
   const userState = await loadStateFile()
   const changeWallpaper = shouldChange(
@@ -33,6 +34,24 @@ try {
     await log(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
   } else {
     await log('Not time to change yet')
+  }
+}
+
+try {
+  const command = process.argv[2]
+
+  if (command === 'install') {
+    await installTask()
+    await log('Task installed. Wallpapers will rotate automatically.')
+  } else if (command === 'uninstall') {
+    await uninstallTask()
+    await log('Task removed.')
+  } else if (command === undefined) {
+    await run()
+  } else {
+    throw new Error(
+      `Unknown command "${command}". Use install, uninstall or no command.`
+    )
   }
 } catch (error) {
   await logError(error.message)
