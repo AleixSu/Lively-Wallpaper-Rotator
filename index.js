@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { loadConfig } from './src/config.js'
 import { isLivelyRunning, setWallpaper } from './src/lively.js'
+import path from 'node:path'
+import { log, logError } from './src/logger.js'
 import {
   getNextWallpaper,
   getWallpapers,
@@ -24,16 +26,15 @@ try {
     const wallpapers = await getWallpapers(config.libraryPaths)
     const nextWallpaper = getNextWallpaper(wallpapers, userState.lastWallpaper)
     await setWallpaper(config.livelyPath, nextWallpaper)
-    console.log('Wallpaper Changed')
-
     await writeStateFile({
       lastWallpaper: nextWallpaper,
       lastChange: new Date().toISOString()
     })
+    await log(`Wallpaper changed to ${path.basename(nextWallpaper)}`)
   } else {
-    console.log('Not time to change yet')
+    await log('Not time to change yet')
   }
 } catch (error) {
-  console.error(error.message)
+  await logError(error.message)
   process.exitCode = 1
 }
