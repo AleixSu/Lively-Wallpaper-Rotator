@@ -5,8 +5,8 @@
 Lively Rotator is a small Node.js CLI that runs in the background as a Windows scheduled task. Every X hours it switches to the next wallpaper in your Lively library, notifies you, and keeps a log of everything it does.
 
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D6)
-![Node](https://img.shields.io/badge/node-%5E22.22.2%20%7C%7C%20%5E24.15.0%20%7C%7C%20%3E%3D26-339933)
-![License](https://img.shields.io/badge/license-ISC-blue)
+![Node](https://img.shields.io/badge/node-22.22.2%2B-339933)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
@@ -178,4 +178,4 @@ lively-rotator/
 
 ## License
 
-[ISC](LICENSE)
+[MIT](LICENSE)
