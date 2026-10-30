@@ -31,7 +31,7 @@ Lively Rotator is a small Node.js CLI that runs in the background as a Windows s
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/lively-rotator.git
+git clone https://github.com/AleixSu/Lively-Wallpaper-Rotator.git
 cd lively-rotator
 npm install
 npm link
